@@ -70,11 +70,13 @@ It might take a few minutes for spans to be sent to Zipkin after these calls are
 
 ## View Traces
 
-5. Open the Zipkin UI and either search for recent spans, or enter a requestId in the search box.
+5. Open the Zipkin UI at: http://localhost:9411/
+
+Either search for recent spans, or enter a requestId in the search box.
 
 ![Screenshot1](docs/screenshot-1.png)
 
-Click on a trace to view more details.
+Click on a span to view more details.
 
 ![Screenshot2](docs/screenshot-2.png)
 

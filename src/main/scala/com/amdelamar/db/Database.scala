@@ -8,6 +8,9 @@ import com.typesafe.scalalogging.Logger
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
+/**
+ * Simulates a Database, just for demo purposes.
+ */
 class Database(implicit val ex: ExecutionContext) {
 
   private val logger = Logger("Database")

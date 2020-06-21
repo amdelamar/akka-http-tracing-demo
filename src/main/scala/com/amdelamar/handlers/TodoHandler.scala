@@ -6,7 +6,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.stream.Materializer
 import com.amdelamar.db.{Database, Todo}
 import com.typesafe.scalalogging.Logger
 import kamon.Kamon
@@ -14,10 +13,10 @@ import play.api.libs.json.Json
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TodoHandler(db: Database)
-                 (implicit system: ActorSystem,
-                  materializer: Materializer,
-                  ex: ExecutionContext) {
+/**
+ * Servlet Handler, handles API calls for Todo objects, just for demo purposes.
+ */
+class TodoHandler(db: Database)(implicit system: ActorSystem, ex: ExecutionContext) {
 
   private val logger = Logger(this.getClass.getName)
   implicit val todoJsonformat = Todo.jsonFormat
@@ -26,23 +25,19 @@ class TodoHandler(db: Database)
     pathPrefix("api" / "v1" / "todo") {
       pathEndOrSingleSlash {
         get {
-          val response = fetchAllTodos()
-          complete(response)
+          complete(fetchAllTodos())
         } ~
         post {
           entity(as[String]) { body =>
-            val response = saveTodo(body)
-            complete(response)
+            complete(saveTodo(body))
           }
         } ~
         path(JavaUUID) { id =>
           get {
-            val response = fetchTodo(id)
-            complete(response)
+            complete(fetchTodo(id))
           } ~
           delete {
-            val response = deleteTodo(id)
-            complete(response)
+            complete(deleteTodo(id))
           }
         }
       }

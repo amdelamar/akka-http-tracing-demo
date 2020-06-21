@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 javaAgents += "io.kamon" % "kanela-agent" % "1.0.5"
 
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging, JavaAgent)
   .settings(
     fork in run := true
   )
-  .enablePlugins(JavaAppPackaging, JavaAgent)
